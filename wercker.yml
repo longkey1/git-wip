@@ -1,0 +1,37 @@
+box: tcnksm/gox
+build:
+  steps:
+    - setup-go-workspace
+    - script:
+      name: go get
+      code: |
+        go get -t ./...
+    - script:
+      name: go test
+      code: |
+        go test -v ./...
+    - tcnksm/gox:
+        os: "darwin linux windows"
+        arch: "386 amd64"
+        ldflags: -X main.GitCommit "$(git describe --always)"
+    - tcnksm/zip:
+        input: $WERCKER_OUTPUT_DIR/pkg
+        output: $WERCKER_OUTPUT_DIR/dist
+  after-steps:
+    - slack-notifier:
+        url: $SLACK_URL
+        channel: longkey1
+        username: wercker
+deploy:
+  steps:
+    - tcnksm/ghr:
+        token: $GITHUB_TOKEN
+        input: dist
+        version: v0.1.0
+        pre_release: true
+        replace: true
+  after-steps:
+    - slack-notifier:
+        url: $SLACK_URL
+        channel: longkey1
+        username: wercker
