@@ -1,6 +1,8 @@
-# git-wip
+# gi -wip
+[![wercker status](https://app.wercker.com/status/ae94ff73bcf0bb67fbf3fae4fc77adfb/s "wercker status")](https://app.wercker.com/project/bykey/ae94ff73bcf0bb67fbf3fae4fc77adfb)
 
-## Description
+
+cc Description
 
 github上でWIP (Work In Progress) 用のPull-Requestを簡単に作成する為のGitのサブコマンドです。
 以下のことを自動で実行してくれます。
